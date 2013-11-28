@@ -1,13 +1,14 @@
-from Tkinter import *
-from ttk import *
-import urllib, re, httplib, cgi, urllib2, os, thread 
+import re, httplib, urllib2, os 
        
 conn = httplib.HTTPConnection("mp3.zing.vn") 
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html"} 
 ff = [] 
+ar = ""
 
-ar = raw_input('Artist : ')
-ar = ar.replace(' ','+')  
+while ar == "":
+	os.system("cls");
+	ar = raw_input('Artist : ')
+	ar = ar.replace(' ','+')  
 
 conn.request("GET", "/tim-kiem/bai-hat.html?q="+ar, "", headers)   
 r = conn.getresponse()   
@@ -47,7 +48,7 @@ if len(ff) > 0:
 
 				f = open(file_name, 'wb')
 
-				print "Downloading: %s Bytes: %s \a" % (file_name, file_size)
+				print "Downloading: %s Bytes: %s" % (file_name, file_size)
 				file_size_dl = 0
 				block_sz = 81920
 				while True:
@@ -60,8 +61,8 @@ if len(ff) > 0:
 					status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
 					status = status + chr(8)*(len(status)+1)
 					print status,
-				f.close() 
+				f.close()  
 				cnt  = cnt + 1 
 		except:
 			print "Error"
-			continue  
+			continue   

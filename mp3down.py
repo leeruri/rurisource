@@ -4,10 +4,9 @@ import urllib, re, httplib, cgi, urllib2, os, thread
        
 conn = httplib.HTTPConnection("mp3.zing.vn") 
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html"} 
-ff = []  
+ff = [] 
 
 ar = raw_input('Artist : ')
- 
 ar = ar.replace(' ','+')  
 
 conn.request("GET", "/tim-kiem/bai-hat.html?q="+ar, "", headers)   

@@ -1,4 +1,4 @@
-import re, httplib, urllib2, os 
+import re, httplib, urllib2, os, sys
        
 conn = httplib.HTTPConnection("mp3.zing.vn") 
 headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html"} 
@@ -60,9 +60,15 @@ if len(ff) > 0:
 					f.write(buffer)
 					status = r"%10d  [%3.2f%%]" % (file_size_dl, file_size_dl * 100. / file_size)
 					status = status + chr(8)*(len(status)+1)
-					print status,
+
+					# To distinguish displaying difference between dos and linux
+					if sys.platform == 'win32':
+						print status,
+					else:
+						print status
+
 				f.close()  
 				cnt  = cnt + 1 
 		except:
 			print "Error"
-			continue   
+			continue

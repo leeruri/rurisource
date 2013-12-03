@@ -3,7 +3,7 @@ import re, httplib, urllib2, os, sys, datetime, time
 class mp3down:
 	conn = httplib.HTTPConnection("mp3.zing.vn") 
 	headers = {"Content-type": "application/x-www-form-urlencoded", "Accept": "text/html"} 
-	logFolder = "./log/"
+	logFolder = "./logs/"
 	def __init__(self):  
 		if not os.path.exists(os.path.dirname(self.logFolder)):
 			os.makedirs(os.path.dirname(self.logFolder)) 

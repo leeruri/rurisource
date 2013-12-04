@@ -50,17 +50,17 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 <div style="float:left; width: 60%;">
 
 {% if title %}
-	<div style="font-size: 50px; color: #FFCC66;  " >{{ title }}</div>
+	<div style="font-size: 50px; color: #FFCC66;margin: 30px 20px 30px 50px; " >{{ title }}</div>
 {% endif %}
 {% if entries %}
 	<div>
 		{% for entry in entries %}
-		<div style="position:relative; margin: 50px 20px 50px 20px; ">
+		<div style="position:relative; margin: 50px 20px 50px 50px; ">
 			<div style="width: 100px; font-weight: 900; color: blue;">
 			{{ entry.created | date:"o/m/d" }}</div> 
 			<div style="width: 100%;">
-				<div style="background-color: #EEEEEE; ">{{ entry.Category_id }}</div>
-				<div style="background-color: #EEEEEE; ">{{ entry.Title }}</div>
+				<div style="background-color: #EEEEEE; ">카테고리: {{ entry.Category_id }}</div>
+				<div style="background-color: #EEEEEE; ">제목: {{ entry.Title }}</div>
 				<div style="background-color: #E0E0E0; ">{{ entry.Content|linebreaks }}</div> 
 			</div>
 		</div>

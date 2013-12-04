@@ -8,11 +8,13 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 <script type="text/javascript">
 	
 	var histories = {}
-	var categories = {}
+	var categories = {} 
+	
 
 	function init(){ 
 		h_html = "<ul>"
 		c_html = "<ul>"
+		e_html = ""
 
 		{% if common %}
 			{% for h in common.history %}
@@ -23,17 +25,32 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 
 			{% for h in common.categories %}
 				c_html += "<li><a href='http://localhost:8000/category/{{h.Title}}/'>{{ h.Title }}</a></li>";
+				categories["{{h.id}}"] = "{{ h.Title }}";
 			{% endfor %}
 		{% endif %}
 		
 		for (cnt in histories) 
 			h_html += "<li><a href='http://localhost:8000/date/"+ cnt +"'>" + cnt +"(" + histories[cnt] + ")</a></li>"; 
-		
+	 
+
+		{% if entries %}
+			{% for entry in entries %} 
+				e_html += "<div style='position:relative; margin: 50px 20px 50px 50px; '>";
+				e_html += "<div style='font-weight: 900; color: blue;'>"+'{{ entry.created | date:"o-m-d h:e" }}'+" </div>";
+				e_html += "<div style='background-color: #EEEEEE; '>【"+categories["{{ entry.Category_id }}"]+"】 {{ entry.Title }}</div>"; 
+				e_html += "<div style='background-color: #E0E0E0; '>{{ entry.Content|linebreaks }}</div>";		
+				e_html += "</div>";	 
+			{% endfor %} 
+		{% else %}
+			e_html = "암것도 없엉..";
+		{% endif %}
+
 		c_html += "</ul>";
 		h_html += "</ul>";
 		
 		$("#history").html(h_html);
 		$("#categories").html($("#categories").html()+c_html);
+		$("#entries").html(e_html);
 	}
 </script>
 </head>
@@ -52,25 +69,7 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 {% if title %}
 	<div style="font-size: 50px; color: #FFCC66;margin: 30px 20px 30px 50px; " >{{ title }}</div>
 {% endif %}
-{% if entries %}
-	<div>
-		{% for entry in entries %}
-		<div style="position:relative; margin: 50px 20px 50px 50px; ">
-			<div style="width: 100px; font-weight: 900; color: blue;">
-			{{ entry.created | date:"o/m/d" }}</div> 
-			<div style="width: 100%;">
-				<div style="background-color: #EEEEEE; ">카테고리: {{ entry.Category_id }}</div>
-				<div style="background-color: #EEEEEE; ">제목: {{ entry.Title }}</div>
-				<div style="background-color: #E0E0E0; ">{{ entry.Content|linebreaks }}</div> 
-			</div>
-		</div>
-		{% endfor %}
-	</div>
-{% else %}
-	<p>No entries are available...</p>
-{% endif %}
-
-</div>
+<div id="entries"></div>
 
 
 

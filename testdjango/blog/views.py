@@ -9,11 +9,7 @@ page_index = 'blog/index.html'
 page_404 = 'blog/page404.html'
 
 def index(request): 
-	entries = Entries.objects.order_by('-created')
-	for e in entries:
-		if expression: break
-		if expression: continue
-	else:
+	entries = Entries.objects.order_by('-created') 
 		
 	page = page_index
 	param = {'entries' : entries, 'common' : common(), }

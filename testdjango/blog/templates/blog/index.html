@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
-</style>
 <script src="{{ STATIC_URL }}js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript">
 	
@@ -35,10 +32,11 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 
 		{% if entries %}
 			{% for entry in entries %} 
-				e_html += "<div style='position:relative; margin: 50px 20px 50px 50px; '>";
-				e_html += "<div style='font-weight: 900; color: blue;'>"+'{{ entry.created | date:"o-m-d h:e" }}'+" </div>";
-				e_html += "<div style='background-color: #EEEEEE; '>【"+categories["{{ entry.Category_id }}"]+"】 {{ entry.Title }}</div>"; 
-				e_html += "<div style='background-color: #E0E0E0; '>{{ entry.Content|linebreaks }}</div>";		
+				e_html += "<div class='entry'>";
+				e_html += "<div class='category'>"+categories["{{ entry.Category_id }}"]+"</div>";
+				e_html += "<div class='title'>˝{{ entry.Title }}˝</div>"; 
+				e_html += "<div class='content'>{{ entry.Content|linebreaks }}</div>";		
+				e_html += "<div class='date'>{{ entry.created }}</div>";
 				e_html += "</div>";	 
 			{% endfor %} 
 		{% else %}
@@ -53,8 +51,18 @@ html, body {width: 100%; height: 100%; margin: 0px; padding: 0px;}
 		$("#entries").html(e_html);
 	}
 </script>
+<link type="text/css" href="{{ STATIC_URL }}css/style.css" rel="Stylesheet"	 /> 
+<style type="text/css" rel="Stylesheet">
+.entry {position:relative; background-color: #EEEEEE; margin: 50px 20px 50px 50px; padding: 10px;}
+.entry .category{background-color: #FFFFFF;}
+.entry .title{background-color: #FFFFFF; }
+.entry .content{background-color: #FFFFFF; }
+.entry .date{background-color: #FFFFFF; }
+
+</style>
 </head>
 <body onload="init();">
+{{ STATIC_URL }}css/style.css
 <div style="float: left; "> 
 	<p style="text-align:center; margin: 10px; "><a href="http://localhost:8000/write/">작성하기</a></p>
 	<p style="background-color:black; color: white;"> ▒ 카테고리 </p>
